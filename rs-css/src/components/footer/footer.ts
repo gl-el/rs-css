@@ -17,7 +17,7 @@ export default class Footer extends ElementBuilder {
       tag: 'img',
       classNames: ['footer__ico', 'gh-logo'],
       attr: { src: `${ghlogo}` },
-    }).createElement();
+    });
 
     const ghLink = new ElementBuilder({
       tag: 'a',
@@ -30,7 +30,7 @@ export default class Footer extends ElementBuilder {
       tag: 'img',
       classNames: ['footer__ico', 'rs-logo'],
       attr: { src: `${rslogo}` },
-    }).createElement();
+    });
 
     const rsLink = new ElementBuilder({
       tag: 'a',
@@ -39,12 +39,12 @@ export default class Footer extends ElementBuilder {
     });
     rsLink.addInner(rsIco);
 
-    this.addInner(ghLink.createElement());
+    this.addInner(ghLink);
     this.addInner(new ElementBuilder({
       tag: 'p',
       classNames: ['footer__item', 'footer__text'],
       text: '2023',
-    }).createElement());
-    this.addInner(rsLink.createElement());
+    }));
+    this.addInner(rsLink);
   }
 }

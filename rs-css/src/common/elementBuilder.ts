@@ -35,9 +35,9 @@ export default class ElementBuilder<T extends HTMLElement = HTMLElement> {
     }
   }
 
-  public addInner(el: HTMLElement | null):void {
-    if (el instanceof HTMLElement) {
-      this.el.append(el);
+  public addInner(el: ElementBuilder):void {
+    if (el instanceof ElementBuilder) {
+      this.el.append(el.createElement());
     }
   }
 
