@@ -13,14 +13,14 @@ export default class EditorElement<T extends HTMLDivElement> {
   }
 
   private genText(levelEl: LevelElement): void {
-    this.textBefore = `<${levelEl.element}`;
+    this.textBefore = `<span class="tag">&lt;${levelEl.element}</span>`;
     if (levelEl.attributes) {
       // eslint-disable-next-line no-restricted-syntax
       for (const [key, value] of Object.entries(levelEl.attributes)) {
-        this.textBefore += ` ${key}="${value}"`;
+        this.textBefore += ` <span class="prop">${key}=</span><span class="prop-text">"${value}"</span>`;
       }
     }
-    this.textBefore += '>';
+    this.textBefore += '<span class="tag">&gt;</span>';
     this.textAfter += `</${levelEl.element}>`;
   }
 

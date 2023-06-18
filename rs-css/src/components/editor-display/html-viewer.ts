@@ -54,16 +54,27 @@ export default class HTMLViewer extends ElementBuilder {
     level.task.forEach((levelEl) => {
       const element = new EditorElement(levelEl);
       this.viewerElements.push(element);
-      element.create().append(element.textBefore);
+      element.create().innerHTML = element.textBefore;
       if (levelEl.childes) {
         levelEl.childes.forEach((child) => {
           const childEl = new EditorElement(child);
-          childEl.create().append(`${childEl.textBefore}${childEl.textAfter}`);
+          childEl.create().innerHTML = `${childEl.textBefore}`;
+          const childAfter = new ElementBuilder({
+            tag: 'span',
+            classNames: ['tag'],
+            text: childEl.textAfter,
+          }).createElement();
+          childEl.create().append(childAfter);
           this.viewerElements.push(childEl);
           element.create().append(childEl.create());
         });
       }
-      element.create().append(element.textAfter);
+      const after = new ElementBuilder({
+        tag: 'span',
+        classNames: ['tag'],
+        text: element.textAfter,
+      }).createElement();
+      element.create().append(after);
       this.viewerWindow.el.append(element.create());
     });
   }
