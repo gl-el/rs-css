@@ -1,0 +1,19 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 200px;
+  height: max(calc(100vh - 50px), 718px);
+}
+
+.game-task {
+  width: min(70%, 450px);
+  font-size: calc(15px + 0.390625vw);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .game {
+    margin-right: 0;
+  }
+}
