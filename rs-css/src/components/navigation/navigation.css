@@ -1,0 +1,143 @@
+.menu {
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  top: 0;
+  background-color: black;
+  width: 200px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu__btn {
+  position: absolute;
+  z-index: 10;
+  top: 15px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer
+}
+
+@media (max-width: 768px) {
+  .menu {
+    transform: translateX(200px);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .menu_active {
+    transform: translateX(0px);
+  }
+
+  .menu__btn {
+    display: flex;
+  }
+
+  .menu__after {
+    width: 100dvw;
+    height: 100dvh;
+    position: absolute;
+    top: 0;
+    right: -100dvw;
+    z-index: 1;
+    background-color: black;
+    opacity: 0.5;
+    transition: transform 0.1s ease-in-out;
+  }
+
+  .menu_active .menu__after {
+    transform: translateX(-100dvw);
+  }
+}
+
+.btn__line {
+  display: inline-block;
+  background-color: aliceblue;
+  width: 100%;
+  height: 2px;
+}
+
+.menu__btn::before,
+.menu__btn::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: aliceblue;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu__btn::before {
+  top: 2px;
+  left: 0;
+}
+
+.menu__btn::after {
+  bottom: 0;
+  left: 0;
+}
+
+.menu__btn_active .btn__line {
+  display: none;
+}
+
+.menu__btn.menu__btn_active::after {
+  bottom: 8px;
+  transform: rotate(-45deg);
+}
+.menu__btn.menu__btn_active::before {
+  top: 10px;
+  transform: rotate(45deg);
+}
+
+.levels {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.level {
+  padding-inline-start: 1ch;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: rgb(219, 255, 153);
+  filter: opacity(0.5);
+  transition: 0.2s all ease-in-out;
+}
+
+.btn__reset {
+  position: relative;
+  z-index: 10;
+}
+
+.level:hover,
+.level_active {
+  filter: opacity(1);
+}
+
+.level::marker {
+  content: "✗";
+}
+
+.level_completed::marker {
+  content: "✓";
+}
+
+.level_help::marker {
+  content: "?";
+}
+
+.level_active::marker {
+  content: "➥";
+}
