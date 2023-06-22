@@ -1,18 +1,25 @@
 .table {
-  margin-top: 100px;
-  height: 150px;
+  width: max(60%, 450px);
+  min-height: 150px;
+  margin-bottom: 30px;
   background-color: rgb(221, 170, 1);
+  border-radius: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  background-image: url("../../assets/svg/Texture.svg");
+  transform-origin: 50% 50%;
+  transform: rotateX(20deg);
+  box-shadow: 0px 17px 0px -6px rgb(142, 97, 0), 0px 17px 0px -6px rgb(142, 97, 0);
 }
 
 .table * {
   cursor: crosshair;
 }
 
-.table plate {
+.table plate,
+.table pan {
   position: relative;
   display: flex;
   justify-content: center;
@@ -20,15 +27,41 @@
   gap: 5px;
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  background-color: white;
+  background-size: contain;
   transition: all 0.1s ease-in-out;
 }
 
-.table plate#blue {
+.table plate {
+  background-image: url("../../assets/png/plate_default.png");
+}
+
+.table pan {
+  background-image: url("../../assets/png/wok_default.png");
+}
+
+.table plate#red {
+  background-image: url("../../assets/png/plate_active.png");
+}
+
+.table>*>steak {
+  background-image: url("../../assets/png/steak_fresh.png");
+}
+
+.table>*>steak#cooked {
+  background-image: url("../../assets/png/steak_grilled.png");
+}
+
+.table>*>* {
   display: block;
-  box-sizing: border-box;
-  border: 2px solid blue;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  transition: all 0.1s ease-in-out;
+}
+
+.table egg.small {
+  width: 20px;
+  height: 20px;
 }
 
 .tooltip {
@@ -36,7 +69,7 @@
   text-align: center;
   visibility: hidden;
   opacity: 0;
-  background-color: black;
+  background-color: #484F56;
   color: #fff;
   text-align: center;
   padding: 5px 5px;
@@ -53,22 +86,7 @@
   opacity: 1;
 }
 
-.table apple {
-  display: block;
-  width: 30px;
-  height: 30px;
-  background-image: url("../../assets/svg/apple-svgrepo-com.svg");
-  background-size: contain;
-  border-radius: 50%;
-  transition: all 0.1s ease-in-out;
-}
-
-.table apple.small {
-  width: 20px;
-  height: 20px;
-}
-
 [data-hovered="true"] {
-  filter: drop-shadow(0px 0px 10px #FF2C2C);
+  filter: drop-shadow(0px 0px 5px #2cffb9);
 }
 
