@@ -7,9 +7,10 @@ import { tasks } from '../../assets/data/level';
 import './game.css';
 import { Status, SavedStatus } from '../../utils/types';
 
-type JsonStatus = [ number, Status ];
+type JsonStatus = [number, Status];
 
-export default class Game extends ElementBuilder {
+export default class Game {
+/*   public editor: ace.Ace.Editor; */
   public menu: Menu;
 
   public header: ElementBuilder;
@@ -26,8 +27,8 @@ export default class Game extends ElementBuilder {
 
   private statuses: SavedStatus = new Map();
 
-  constructor() {
-    super({ tag: 'section', classNames: ['game'] });
+  constructor(parent: HTMLElement) {
+    const section = new ElementBuilder({ tag: 'section', classNames: ['game'] });
     this.header = new ElementBuilder({
       tag: 'h1',
       classNames: ['game-task'],
@@ -35,10 +36,15 @@ export default class Game extends ElementBuilder {
     this.levelCounter = localStorage.getItem('currLvl') ? Number(localStorage.getItem('currLvl')) : 0;
     this.menu = new Menu(tasks);
     this.table = new Table();
-    this.input = new EditorInput();
+    this.input = new EditorInput(parent);
     this.viewer = new HTMLViewer();
+    section.addInner(this.header);
+    parent.append(this.menu.createElement());
+    section.addInner(this.table);
+    section.addInner(this.input);
+    section.addInner(this.viewer);
+    parent.append(section.createElement());
     this.setSavedLvls();
-    this.setUp();
   }
 
   private setSavedLvls(): void {
@@ -54,16 +60,17 @@ export default class Game extends ElementBuilder {
     });
   }
 
-  private setUp(): void {
+  public setUp(): void {
     this.setTask();
-    this.input.submit.addClick(() => { this.validateInput(); });
+    this.input.submit.addClick(() => { this.validateInput(this.input.getValue()); });
     document.addEventListener('keypress', (e: KeyboardEvent) => {
       this.input.input.el.focus();
       if (e.key === 'Enter') {
-        this.validateInput();
+        e.preventDefault();
+        this.validateInput(this.input.getValue());
       }
     });
-    document.addEventListener('click', () => this.input.input.el.focus());
+    document.addEventListener('click', () => this.input.editor.focus());
     this.menu.levels.forEach((element, index) => {
       element.el.addEventListener('click', () => {
         this.levelCounter = index;
@@ -73,11 +80,6 @@ export default class Game extends ElementBuilder {
     });
     this.menu.resetBtn.addClick(() => { this.reset(); });
     this.getHelp();
-    this.addInner(this.header);
-    this.addInner(this.table);
-    this.addInner(this.input);
-    this.addInner(this.viewer);
-    document.body.append(this.menu.createElement());
   }
 
   private hoverItem(e: Event, index: number): void {
@@ -95,7 +97,7 @@ export default class Game extends ElementBuilder {
     this.save();
     this.header.addText(tasks[this.levelCounter].taskStr);
     this.menu.setActive(this.levelCounter);
-    this.input.input.setValue('');
+    this.input.setValue('');
     this.table.addTask(tasks[this.levelCounter]);
     this.viewer.addTask(tasks[this.levelCounter]);
     const itemsLength = this.table.plates.length;
@@ -130,8 +132,7 @@ export default class Game extends ElementBuilder {
     }, 600);
   }
 
-  private checkInput(): void {
-    const selector = this.input.input.getValue();
+  private checkInput(selector: string): void {
     const elements = this.table.el.querySelectorAll(`${selector}`);
     let win = true;
     if (elements.length === 0) {
@@ -157,9 +158,9 @@ export default class Game extends ElementBuilder {
     }
   }
 
-  private validateInput(): void {
+  private validateInput(selector: string): void {
     try {
-      this.checkInput();
+      this.checkInput(selector);
     } catch (err) {
       this.shake();
     }
@@ -168,7 +169,7 @@ export default class Game extends ElementBuilder {
   private getHelp(): void {
     this.input.help.addClick(() => {
       this.status = 'help';
-      this.input.input.printValue(tasks[this.levelCounter].answer);
+      this.input.printValue(tasks[this.levelCounter].answer);
     });
   }
 

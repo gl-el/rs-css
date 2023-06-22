@@ -2,11 +2,16 @@
   font-family: 'Martian Mono', monospace;
 }
 
+#ace-editor {
+  height: 100%;
+  width: 80%;
+}
+
 .editor {
   box-sizing: border-box;
-  width: 50%;
+  width: min(70%, 450px);
   background-color: rgb(59, 56, 56);
-
+  position:relative;
 }
 
 .editor__header {
@@ -20,25 +25,7 @@
   padding: 10px;
   display: flex;
   justify-content: flex-end;
-}
-
-.input-field {
-  width: 78%;
-  color: rgb(44, 255, 44);
-  margin-right: auto;
-  background-color: rgb(138, 131, 131);
-  border-radius: 2px;
-}
-
-.input-field::placeholder {
-  color: rgb(219, 255, 153);
-}
-
-.input-field:focus,
-.input-field:active {
-  outline-style: none;
-  box-shadow: none;
-  border-color: transparent;
+  align-items: center;
 }
 
 .btn {

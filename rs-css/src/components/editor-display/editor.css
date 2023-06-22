@@ -1,5 +1,5 @@
 .viewer {
-  width: 50%;
+  width: min(70%, 450px);
   font-size: 10px;
   position: relative;
   background-color: rgb(59, 56, 56);
@@ -14,30 +14,38 @@
 
 .viewer__numbers {
   display: inline-block;
-  width: 25px;
-  border-right: 2px solid rgb(176, 179, 11);
+  padding-left: 10px;
+  width: 40px;
 }
 
 .viewer__window {
   position: absolute;
+  width: calc(100% - 65px);
+  height: 320px;
   top: 32px;
+  left: 50px;
   line-height: 16px;
   color: rgb(173, 173, 173);
+  background-color: #232323;
 }
 
-.viewer__window * {
-  padding-left: 30px;
+.viewer__window>* {
+  padding-left: 5px;
   cursor: crosshair;
 }
 
+.viewer__window>*>* {
+  padding-left: 10px;
+}
+
 .viewer__line {
-  background-color: rgb(59, 56, 56);
+  background-color: rgb(49, 46, 46);
 }
 
 .line__number {
   display: inline-block;
   width: 20px;
-  padding: 2px 10px 2px 0px;
+  padding: 2px 0px 2px 10px;
   text-align: end;
 }
 
