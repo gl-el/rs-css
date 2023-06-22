@@ -50,7 +50,7 @@ export default class HTMLViewer extends ElementBuilder {
   }
 
   public addTask(level: Task): void {
-    this.viewerWindow.el.replaceChildren();
+    this.removeSelectors();
     level.task.forEach((levelEl) => {
       const element = new EditorElement(levelEl);
       this.viewerElements.push(element);
@@ -77,6 +77,10 @@ export default class HTMLViewer extends ElementBuilder {
       element.create().append(after);
       this.viewerWindow.el.append(element.create());
     });
+  }
+
+  public removeSelectors(): void {
+    this.viewerWindow.el.replaceChildren();
   }
 
   public shake(): void {

@@ -10,7 +10,6 @@ import { Status, SavedStatus } from '../../utils/types';
 type JsonStatus = [number, Status];
 
 export default class Game {
-/*   public editor: ace.Ace.Editor; */
   public menu: Menu;
 
   public header: ElementBuilder;
@@ -95,6 +94,8 @@ export default class Game {
 
   private setTask(): void {
     this.save();
+    this.input.submit.el.removeAttribute('disabled');
+    this.input.help.el.removeAttribute('disabled');
     this.header.addText(tasks[this.levelCounter].taskStr);
     this.menu.setActive(this.levelCounter);
     this.input.setValue('');
@@ -124,12 +125,24 @@ export default class Game {
   private loadNext(): void {
     const index = this.levelCounter;
     this.statuses.set(index, this.status);
-    this.levelCounter += 1;
-    setTimeout(() => {
-      this.setTask();
-      this.menu.setStatus(this.status, index);
-      this.status = 'uncompleted';
-    }, 600);
+    if (index < tasks.length - 1) {
+      this.levelCounter += 1;
+      setTimeout(() => {
+        this.setTask();
+        this.menu.setStatus(this.status, index);
+        this.status = 'uncompleted';
+      }, 600);
+    } else {
+      setTimeout(() => {
+        this.menu.setStatus(this.status, index);
+        this.input.submit.el.setAttribute('disabled', 'true');
+        this.input.help.el.setAttribute('disabled', 'true');
+        this.input.setValue('');
+        this.viewer.removeSelectors();
+        this.table.removeNodes();
+        this.header.addText('You won! Press reset progress to start again or select a level');
+      }, 600);
+    }
   }
 
   private checkInput(selector: string): void {
