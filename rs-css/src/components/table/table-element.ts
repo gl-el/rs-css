@@ -40,7 +40,7 @@ export default class TableElement<T extends HTMLDivElement> {
   public hover(): void {
     this.tableEl.setAttribute('data-hovered', 'true');
     const { x, y } = this.tableEl.getBoundingClientRect();
-    this.tooltip.show(x, y);
+    this.tooltip.show(x + this.tableEl.offsetWidth / 2, y);
   }
 
   public unhover(): void {

@@ -13,7 +13,7 @@ export default class Tooltip extends ElementBuilder {
   public show(x: number, y:number): void {
     this.el.classList.add('tooltip_active');
     this.el.style.top = `${y - 40}px`;
-    this.el.style.left = `${x}px`;
+    this.el.style.left = `${x - this.el.offsetWidth / 2}px`;
   }
 
   public hide(): void {
