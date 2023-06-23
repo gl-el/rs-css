@@ -1,5 +1,6 @@
 .table {
-  width: max(60%, 450px);
+  position: relative;
+  width: clamp(450px, 60%, 700px);
   min-height: 150px;
   margin-bottom: 30px;
   background-color: rgb(221, 170, 1);
@@ -10,8 +11,29 @@
   justify-content: space-evenly;
   background-image: url("../../assets/svg/Texture.svg");
   transform-origin: 50% 50%;
-  transform: rotateX(20deg);
-  box-shadow: 0px 17px 0px -6px rgb(142, 97, 0), 0px 17px 0px -6px rgb(142, 97, 0);
+  transform: rotateX(10deg);
+  box-shadow: 0px 10px 0px -4px rgb(142, 97, 0), 0px 10px 0px -4px rgb(142, 97, 0);
+}
+
+.table::after,
+.table::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(104, 71, 0);
+  transform-origin: 50% 50%;
+  top: 155px;
+}
+
+.table::after {
+  right: 5%;
+  transform: skew(-10deg, 0deg);
+}
+
+.table::before {
+  left: 5%;
+  transform: skew(10deg, 0deg);
 }
 
 .table * {
