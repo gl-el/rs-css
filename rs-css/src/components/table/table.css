@@ -1,6 +1,6 @@
 .table {
   position: relative;
-  width: clamp(450px, 60%, 700px);
+  width: clamp(400px, 60%, 700px);
   min-height: 150px;
   margin-bottom: 30px;
   background-color: rgb(221, 170, 1);
@@ -41,12 +41,13 @@
 }
 
 .table plate,
-.table pan {
+.table pan,
+.table steak,
+.table fish {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
   width: 100px;
   height: 100px;
   background-size: contain;
@@ -65,12 +66,24 @@
   background-image: url("../../assets/png/plate_active.png");
 }
 
-.table>*>steak {
+.table pan#green {
+  background-image: url("../../assets/png/wok_active.png");
+}
+
+.table steak {
+  width: 40px;
+  height: 40px;
   background-image: url("../../assets/png/steak_fresh.png");
 }
 
-.table>*>steak#cooked {
+.table steak#cooked {
   background-image: url("../../assets/png/steak_grilled.png");
+}
+
+.table fish {
+  width: 40px;
+  height: 40px;
+  background-image: url("../../assets/png/fish_fresh.png");
 }
 
 .table>*>* {
@@ -81,19 +94,19 @@
   transition: all 0.1s ease-in-out;
 }
 
-.table egg.small {
-  width: 20px;
-  height: 20px;
+.table *.small {
+  width: 30px;
+  height: 30px;
 }
 
 .tooltip {
-  height: 20px;
-  text-align: center;
+  height: 1.3em;
   visibility: hidden;
   opacity: 0;
   background-color: #484F56;
   color: #fff;
   text-align: center;
+  font-size: calc(10px + 0.2vw);
   padding: 5px 5px;
   border-radius: 6px;
   position: absolute;
