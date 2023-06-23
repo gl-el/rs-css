@@ -36,7 +36,10 @@ export default class EditorInput extends ElementBuilder {
       maxLines: 1,
       minLines: 1,
       useWorker: false,
+      placeholder: 'Enter CSS selector',
     });
+    this.editor.container.style.lineHeight = '2';
+    this.editor.renderer.updateFontSize();
   }
 
   private setUp(): void {
