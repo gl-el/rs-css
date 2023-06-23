@@ -154,7 +154,7 @@ export default class Game {
     }
     elements.forEach((el) => {
       const returnedEL = this.table.map.get(el);
-      if (!returnedEL?.isTarget) win = false;
+      if (!returnedEL?.isTarget || elements.length !== this.table.targets.length) win = false;
     });
     if (!win) {
       elements.forEach((el) => {

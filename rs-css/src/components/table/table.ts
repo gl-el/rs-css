@@ -13,6 +13,8 @@ export default class Table extends ElementBuilder {
 
   public map: WeakMap<Element, TableElement<HTMLDivElement>> = new WeakMap();
 
+  public targets: TableElement<HTMLDivElement>[] = [];
+
   constructor() {
     super({
       tag: 'div',
@@ -24,10 +26,12 @@ export default class Table extends ElementBuilder {
     level.task.forEach((levelEl) => {
       const element = new TableElement(levelEl);
       this.plates.push(element);
+      if (element.isTarget) this.targets.push(element);
       this.tooltips.push(element.tooltip);
       if (levelEl.childes) {
         levelEl.childes.forEach((child) => {
           const childEl = new TableElement(child);
+          if (childEl.isTarget) this.targets.push(element);
           this.plates.push(childEl);
           this.tooltips.push(childEl.tooltip);
           element.create().append(childEl.create());
@@ -47,5 +51,6 @@ export default class Table extends ElementBuilder {
 
   public removeNodes(): void {
     this.el.replaceChildren();
+    this.targets = [];
   }
 }
