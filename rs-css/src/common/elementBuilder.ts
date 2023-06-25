@@ -1,9 +1,4 @@
-export interface Params {
-  tag: string,
-  classNames?: string[],
-  text?: string,
-  attr?: { [key: string]: string },
-}
+import { Params } from '../utils/types';
 
 export default class ElementBuilder<T extends HTMLElement = HTMLElement> {
   public el: T;

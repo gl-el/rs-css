@@ -1,4 +1,4 @@
-import { Task } from '../../assets/data/level';
+import { Task } from '../../utils/types';
 import ElementBuilder from '../../common/elementBuilder';
 import EditorElement from './editor-item';
 import { animateWrong } from '../../utils/animations';

@@ -1,10 +1,4 @@
-import { LevelElement } from '../../components/table/table-element';
-
-export type Task = {
-  task: LevelElement[];
-  answer: string;
-  taskStr: string,
-};
+import { Task } from '../../utils/types';
 
 export const tasks: Task[] = [
   {

@@ -1,7 +1,7 @@
 import './table.css';
 import ElementBuilder from '../../common/elementBuilder';
 import TableElement from './table-element';
-import { Task } from '../../assets/data/level';
+import { Task } from '../../utils/types';
 import Tooltip from './tooltip';
 
 export default class Table extends ElementBuilder {

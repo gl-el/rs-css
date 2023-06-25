@@ -1,4 +1,4 @@
-import { LevelElement } from '../table/table-element';
+import { LevelElement } from '../../utils/types';
 
 export default class EditorElement<T extends HTMLDivElement> {
   public editorEl: T;

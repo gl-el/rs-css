@@ -1,8 +1,7 @@
 import ElementBuilder from '../../common/elementBuilder';
-import { Task } from '../../assets/data/level';
 import BtnBuilder from '../../common/btnBuilder';
 import './navigation.css';
-import { Status } from '../../utils/types';
+import { Status, Task } from '../../utils/types';
 import NavBtn from './nav-btn';
 
 export default class Menu extends ElementBuilder {

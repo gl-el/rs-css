@@ -1,13 +1,6 @@
 import Tooltip from './tooltip';
 import { animateActive, animateWin, animateWrong } from '../../utils/animations';
-
-export interface LevelElement {
-  element: string,
-  tooltip: string,
-  attributes?: { class?: string; id?: string },
-  childes?: LevelElement[],
-  isTarget?: boolean,
-}
+import { LevelElement } from '../../utils/types';
 
 export default class TableElement<T extends HTMLDivElement> {
   public isTarget: boolean | undefined;
