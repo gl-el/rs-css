@@ -354,4 +354,81 @@ export const tasks: Task[] = [
     taskStr: 'Select all on the pans',
   },
 
+  {
+    task: [
+      {
+        element: 'pan',
+        tooltip: '<pan>',
+        childes: [
+          {
+            element: 'steak',
+            attributes: { class: 'small' },
+            tooltip: '<steak class="small">',
+          },
+        ],
+      },
+      {
+        element: 'steak',
+        attributes: { class: 'small' },
+        tooltip: '<steak class="small">',
+        isTarget: true,
+      },
+      {
+        element: 'pan',
+        tooltip: '<pan id="green">',
+        attributes: { id: 'green' },
+      },
+      {
+        element: 'steak',
+        tooltip: '<steak>',
+        isTarget: true,
+      },
+      {
+        element: 'steak',
+        tooltip: '<steak>',
+      },
+    ],
+    answer: 'pan + steak',
+    taskStr: 'Select the steaks next to the pans',
+  },
+
+  {
+    task: [
+      {
+        element: 'pan',
+        tooltip: '<pan>',
+        childes: [
+          {
+            element: 'steak',
+            tooltip: '<steak>',
+          },
+        ],
+      },
+      {
+        element: 'steak',
+        attributes: { class: 'small' },
+        tooltip: '<steak class="small">',
+        isTarget: true,
+      },
+      {
+        element: 'steak',
+        tooltip: '<steak>',
+        isTarget: true,
+      },
+      {
+        element: 'plate',
+        tooltip: '<plate>',
+        childes: [
+          {
+            element: 'steak',
+            attributes: { id: 'cooked' },
+            tooltip: '<steak id="cooked">',
+          },
+        ],
+      },
+    ],
+    answer: 'pan ~ steak',
+    taskStr: 'Select the steaks beside the pan',
+  },
+
 ];
