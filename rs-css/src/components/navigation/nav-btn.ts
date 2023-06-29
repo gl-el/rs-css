@@ -5,7 +5,7 @@ export default class NavBtn extends BtnBuilder {
   public btn!: BtnBuilder;
 
   constructor() {
-    super('menu__btn', '');
+    super(['menu__btn'], '');
     this.setUp();
   }
 
