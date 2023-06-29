@@ -7,11 +7,11 @@ import Tooltip from './tooltip';
 export default class Table extends ElementBuilder {
   public items!: NodeListOf<Element>;
 
-  public plates: TableElement<HTMLDivElement>[] = [];
+  public tableElements: TableElement<HTMLDivElement>[] = [];
 
   public tooltips: Tooltip[] = [];
 
-  public map: WeakMap<Element, TableElement<HTMLDivElement>> = new WeakMap();
+  public tableElementsMap: WeakMap<Element, TableElement<HTMLDivElement>> = new WeakMap();
 
   public targets: TableElement<HTMLDivElement>[] = [];
 
@@ -25,20 +25,20 @@ export default class Table extends ElementBuilder {
   private createPlates(level: Task): void {
     level.task.forEach((levelEl) => {
       const element = new TableElement(levelEl);
-      this.plates.push(element);
+      this.tableElements.push(element);
       if (element.isTarget) this.targets.push(element);
       this.tooltips.push(element.tooltip);
       if (levelEl.childes) {
         levelEl.childes.forEach((child) => {
           const childEl = new TableElement(child);
           if (childEl.isTarget) this.targets.push(element);
-          this.plates.push(childEl);
+          this.tableElements.push(childEl);
           this.tooltips.push(childEl.tooltip);
           element.create().append(childEl.create());
-          this.map.set(childEl.create(), childEl);
+          this.tableElementsMap.set(childEl.create(), childEl);
         });
       }
-      this.map.set(element.create(), element);
+      this.tableElementsMap.set(element.create(), element);
       this.el.append(element.create());
     });
   }
