@@ -19,10 +19,9 @@ export default class TableElement<T extends HTMLDivElement> {
 
   private setProperties(levelEl: LevelElement): void {
     if (levelEl.attributes) {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [key, value] of Object.entries(levelEl.attributes)) {
+      Object.entries(levelEl.attributes).forEach(([key, value]) => {
         this.tableEl.setAttribute(`${key}`, `${value}`);
-      }
+      });
     }
   }
 
