@@ -29,9 +29,6 @@
 }
 
 .btn {
-  outline-style: none;
-  box-shadow: none;
-  border-color: transparent;
   background-color: rgb(138, 131, 131);
   border-radius: 2px;
   cursor: pointer;
@@ -39,6 +36,7 @@
   color: rgb(219, 255, 153);
   border: solid 3px rgb(77, 73, 73);
   border-width: 1px 1px 6px 1px;
+  transition: all 0.1s linear;
 }
 
 .btn:hover {
