@@ -30,10 +30,8 @@ export default class ElementBuilder<T extends HTMLElement = HTMLElement> {
     }
   }
 
-  public addInner(el: ElementBuilder):void {
-    if (el instanceof ElementBuilder) {
-      this.el.append(el.createElement());
-    }
+  public addInner(...elements: ElementBuilder[]):void {
+    this.el.append(...elements.map((el) => el.createElement()));
   }
 
   public createElement(): HTMLElement {

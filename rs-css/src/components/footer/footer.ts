@@ -39,12 +39,12 @@ export default class Footer extends ElementBuilder {
     });
     rsLink.addInner(rsIco);
 
-    this.addInner(ghLink);
-    this.addInner(new ElementBuilder({
+    const year = new ElementBuilder({
       tag: 'p',
       classNames: ['footer__item', 'footer__text'],
       text: '2023',
-    }));
-    this.addInner(rsLink);
+    });
+
+    this.addInner(ghLink, year, rsLink);
   }
 }

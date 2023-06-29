@@ -25,8 +25,8 @@ export default class EditorInput extends ElementBuilder {
       tag: 'div',
       attr: { id: 'ace-editor' },
     });
-    this.submit = new BtnBuilder('btn btn__enter', 'enter');
-    this.help = new BtnBuilder('btn btn__help', 'help');
+    this.submit = new BtnBuilder(['btn', 'btn__enter'], 'enter');
+    this.help = new BtnBuilder(['btn', 'btn__help'], 'help');
     this.setUp();
     parent.append(this.el);
     this.editor = ace.edit('ace-editor', {
@@ -48,9 +48,7 @@ export default class EditorInput extends ElementBuilder {
       tag: 'div',
       classNames: ['editor__window'],
     });
-    editorWindow.addInner(this.input);
-    editorWindow.addInner(this.submit);
-    editorWindow.addInner(this.help);
+    editorWindow.addInner(this.input, this.submit, this.help);
     this.addInner(editorWindow);
   }
 
