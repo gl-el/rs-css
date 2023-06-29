@@ -7,6 +7,7 @@ import Menu from '../navigation/navigation';
 import { tasks } from '../../assets/data/level';
 import './game.css';
 import { Status, SavedStatus } from '../../utils/types';
+import { storageKeys } from '../../utils/consts';
 
 type JsonStatus = [number, Status];
 
@@ -17,13 +18,13 @@ export default class Game {
 
   public table: Table = new Table();
 
-  public input: EditorInput;
+  public editorInput: EditorInput;
 
-  public viewer: HTMLViewer = new HTMLViewer();
+  public htmlViewer: HTMLViewer = new HTMLViewer();
 
   private status: Status = 'uncompleted';
 
-  private statuses: SavedStatus = new Map();
+  private statusesMap: SavedStatus = new Map();
 
   private model: TaskModel = new TaskModel();
 
@@ -33,99 +34,87 @@ export default class Game {
       tag: 'h1',
       classNames: ['game-task'],
     });
-    const levelCounter = localStorage.getItem('currLvl') ? Number(localStorage.getItem('currLvl')) : 0;
-    this.model.setCurrLvl(levelCounter);
-    this.input = new EditorInput(parent);
-    section.addInner(this.header);
-    parent.append(this.menu.createElement());
-    section.addInner(this.table);
-    section.addInner(this.input);
-    section.addInner(this.viewer);
-    parent.append(section.createElement());
+    this.editorInput = new EditorInput(parent);
+    section.addInner(this.header, this.table, this.editorInput, this.htmlViewer);
+    parent.append(this.menu.createElement(), section.createElement());
     this.setSavedLvls();
   }
 
   private setSavedLvls(): void {
-    const string = localStorage.getItem('save');
+    const string = localStorage.getItem(storageKeys.SAVE);
     if (string) {
       const savedLevels = JSON.parse(string) as JsonStatus[];
-      savedLevels.forEach((level) => {
-        this.statuses.set(level[0], level[1]);
-      });
+      savedLevels.forEach((level) => this.statusesMap.set(...level));
     }
-    this.statuses.forEach((value, key) => {
-      this.menu.setStatus(value, key);
-    });
+    this.statusesMap.forEach((value, key) => this.menu.setStatus(value, key));
   }
 
   public setUp(): void {
     this.setTask();
-    this.input.submit.addClick(() => { this.validateInput(this.input.getValue()); });
+    this.editorInput.submit.addClick(() => { this.validateInput(this.editorInput.getValue()); });
     document.addEventListener('keypress', (e: KeyboardEvent) => {
-      this.input.editor.focus();
+      this.editorInput.editor.focus();
       if (e.key === 'Enter') {
         e.preventDefault();
-        this.validateInput(this.input.getValue());
+        this.validateInput(this.editorInput.getValue());
       }
     });
     this.menu.levels.forEach((element, index) => {
       element.el.addEventListener('click', () => {
-        this.model.setCurrLvl(index);
+        this.model.setCurrentLevel(index);
         this.status = 'uncompleted';
         this.setTask();
       });
     });
-    this.menu.resetBtn.addClick(() => { this.reset(); });
+    this.menu.resetBtn.addClick(() => this.reset());
     this.getHelp();
   }
 
   private hoverItem(e: Event, index: number): void {
-    e.stopImmediatePropagation();
-    this.viewer.viewerElements[index].hover();
-    this.table.plates[index].hover();
+    e.stopPropagation();
+    this.htmlViewer.viewerElements[index].hover();
+    this.table.tableElements[index].hover();
   }
 
   private unhoverItem(e: Event, index: number): void {
-    this.viewer.viewerElements[index].unhover();
-    this.table.plates[index].unhover();
+    this.htmlViewer.viewerElements[index].unhover();
+    this.table.tableElements[index].unhover();
   }
 
   private setTask(): void {
     this.save();
     const task = this.model.getCurrentTask();
-    this.input.submit.el.removeAttribute('disabled');
-    this.input.help.el.removeAttribute('disabled');
+    this.editorInput.submit.el.removeAttribute('disabled');
+    this.editorInput.help.el.removeAttribute('disabled');
     this.header.addText(task.taskStr);
-    this.menu.setActive(this.model.getCurrLvl());
-    this.input.setValue('');
+    this.menu.setActive(this.model.getCurrentLevel());
+    this.editorInput.setValue('');
     this.table.addTask(task);
-    this.viewer.addTask(task);
-    const itemsLength = this.table.plates.length;
-    for (let i = 0; i < itemsLength; i += 1) {
-      const plates = this.table.plates[i];
-      const tags = this.viewer.viewerElements[i];
-      plates.tableEl.addEventListener('mouseover', (e: Event) => { this.hoverItem(e, i); });
-      tags.editorEl.addEventListener('mouseover', (e: Event) => { this.hoverItem(e, i); });
-      plates.tableEl.addEventListener('mouseout', (e: Event) => { this.unhoverItem(e, i); });
-      tags.editorEl.addEventListener('mouseout', (e: Event) => { this.unhoverItem(e, i); });
-    }
+    this.htmlViewer.addTask(task);
+    this.table.tableElements.forEach((plate, index) => {
+      const tags = this.htmlViewer.viewerElements[index];
+      plate.tableEl.addEventListener('mouseover', (e: Event) => this.hoverItem(e, index));
+      tags.editorEl.addEventListener('mouseover', (e: Event) => this.hoverItem(e, index));
+      plate.tableEl.addEventListener('mouseout', (e: Event) => this.unhoverItem(e, index));
+      tags.editorEl.addEventListener('mouseout', (e: Event) => this.unhoverItem(e, index));
+    });
   }
 
   private save(): void {
-    localStorage.setItem('currLvl', `${this.model.getCurrLvl()}`);
-    localStorage.setItem('save', JSON.stringify([...this.statuses]));
+    localStorage.setItem(storageKeys.CURRENT_LEVEL, `${this.model.getCurrentLevel()}`);
+    localStorage.setItem(storageKeys.SAVE, JSON.stringify([...this.statusesMap]));
   }
 
   private shake(): void {
-    this.input.shake();
-    this.viewer.shake();
+    this.editorInput.shake();
+    this.htmlViewer.shake();
   }
 
   private loadNext(): void {
-    const index = this.model.getCurrLvl();
-    this.statuses.set(index, this.status);
+    const index = this.model.getCurrentLevel();
+    this.statusesMap.set(index, this.status);
     if (index < tasks.length - 1) {
-      this.model.upLvl();
+      this.model.upLevel();
       setTimeout(() => {
         this.setTask();
         this.menu.setStatus(this.status, index);
@@ -134,10 +123,10 @@ export default class Game {
     } else {
       setTimeout(() => {
         this.menu.setStatus(this.status, index);
-        this.input.submit.el.setAttribute('disabled', 'true');
-        this.input.help.el.setAttribute('disabled', 'true');
-        this.input.setValue('');
-        this.viewer.removeSelectors();
+        this.editorInput.submit.el.setAttribute('disabled', 'true');
+        this.editorInput.help.el.setAttribute('disabled', 'true');
+        this.editorInput.setValue('');
+        this.htmlViewer.removeSelectors();
         this.table.removeNodes();
         this.header.addText('You won! Press reset progress to start again or select a level');
       }, 600);
@@ -148,7 +137,7 @@ export default class Game {
     const userElements = this.table.el.querySelectorAll(`${selector}`);
     const correctElements = this.table.el.querySelectorAll(this.model.getAnswer());
     let win = true;
-    if (userElements.length === 0) {
+    if (!userElements.length) {
       win = false;
       this.shake();
     }
@@ -157,12 +146,12 @@ export default class Game {
     });
     if (!win) {
       userElements.forEach((el) => {
-        const returnedEL = this.table.map.get(el);
+        const returnedEL = this.table.tableElementsMap.get(el);
         returnedEL?.playWrong();
       });
     } else if (win) {
       userElements.forEach((el) => {
-        const returnedEL = this.table.map.get(el);
+        const returnedEL = this.table.tableElementsMap.get(el);
         returnedEL?.playWin();
       });
       if (this.status !== 'help') this.status = 'completed';
@@ -179,17 +168,17 @@ export default class Game {
   }
 
   private getHelp(): void {
-    this.input.help.addClick(() => {
+    this.editorInput.help.addClick(() => {
       this.status = 'help';
-      this.input.printValue(this.model.getAnswer());
+      this.editorInput.printValue(this.model.getAnswer());
     });
   }
 
   private reset(): void {
     localStorage.removeItem('save');
     localStorage.removeItem('currLvl');
-    this.statuses.clear();
-    this.model.setCurrLvl(0);
+    this.statusesMap.clear();
+    this.model.setCurrentLevel(0);
     this.status = 'uncompleted';
     this.menu.resetStatuses();
     this.setTask();
