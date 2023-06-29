@@ -30,16 +30,15 @@ export default class Menu extends ElementBuilder {
       classNames: ['levels'],
     });
     this.list = menu;
-    this.resetBtn = new BtnBuilder('btn btn__reset', 'Reset progress');
+    this.resetBtn = new BtnBuilder(['btn', 'btn__reset'], 'Reset progress');
     this.navBtn = new NavBtn();
     this.navBtn.addClick(() => this.el.classList.toggle('menu_active'));
     this.background = new ElementBuilder({
       tag: 'div',
       classNames: ['menu__after'],
     });
-    this.background.el.addEventListener('click', () => { this.toggleMenu(); });
-    this.addInner(menu);
-    this.addInner(this.background);
+    this.background.el.addEventListener('click', this.toggleMenu);
+    this.addInner(menu, this.background);
     this.el.append(this.resetBtn.createElement());
     document.body.append(this.navBtn.el);
   }
@@ -98,8 +97,8 @@ export default class Menu extends ElementBuilder {
     this.levels[index].addClass(['level_uncompleted']);
   }
 
-  private toggleMenu(): void {
+  private toggleMenu = (): void => {
     this.el.classList.remove('menu_active');
     this.navBtn.removeActive();
-  }
+  };
 }
