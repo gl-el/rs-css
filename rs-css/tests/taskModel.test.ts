@@ -9,27 +9,27 @@ describe('TaskModel', () => {
   });
 
   it('should set current level', () => {
-    taskModel.setCurrLvl(1);
-    expect(taskModel.getCurrLvl()).toBe(1);
+    taskModel.setCurrentLevel(1);
+    expect(taskModel.getCurrentLevel()).toBe(1);
   });
 
   it('should not set current level if index is out of range', () => {
-    taskModel.setCurrLvl(-1);
-    expect(taskModel.getCurrLvl()).toBe(0);
+    taskModel.setCurrentLevel(-1);
+    expect(taskModel.getCurrentLevel()).toBe(0);
 
-    taskModel.setCurrLvl(100);
-    expect(taskModel.getCurrLvl()).toBe(0);
+    taskModel.setCurrentLevel(100);
+    expect(taskModel.getCurrentLevel()).toBe(0);
   });
 
   it('should increase current level', () => {
-    taskModel.upLvl();
-    expect(taskModel.getCurrLvl()).toBe(1);
+    taskModel.upLevel();
+    expect(taskModel.getCurrentLevel()).toBe(1);
   });
 
   it('should not increase current level if already at the last level', () => {
-    taskModel.setCurrLvl(tasks.length - 1);
-    taskModel.upLvl();
-    expect(taskModel.getCurrLvl()).toBe(tasks.length - 1);
+    taskModel.setCurrentLevel(tasks.length - 1);
+    taskModel.upLevel();
+    expect(taskModel.getCurrentLevel()).toBe(tasks.length - 1);
   });
 
   it('should return current task', () => {
