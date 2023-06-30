@@ -48,7 +48,7 @@
     right: -100dvw;
     overflow: hidden;
     z-index: 1;
-    background-color: black;
+    background-color: #000000;
     opacity: 0.5;
     transition: transform 0.1s ease-in-out;
   }
@@ -60,7 +60,7 @@
 
 .btn__line {
   display: inline-block;
-  background-color: aliceblue;
+  background-color: #f0f8ff;
   width: 100%;
   height: 2px;
 }
@@ -72,7 +72,7 @@
   display: block;
   width: 100%;
   height: 2px;
-  background-color: aliceblue;
+  background-color: #f0f8ff;
   transition: all 0.2s ease-in-out;
 }
 
@@ -114,7 +114,7 @@
   padding-inline-start: 1ch;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  color: rgb(219, 255, 153);
+  color: #dbff99;
   filter: opacity(0.5);
   transition: 0.2s all ease-in-out;
 }

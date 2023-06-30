@@ -3,7 +3,7 @@
   width: clamp(400px, 60%, 700px);
   min-height: 150px;
   margin-bottom: 30px;
-  background-color: rgb(221, 170, 1);
+  background-color: #ddaa01;
   border-radius: 15px;
   display: flex;
   flex-direction: row;
@@ -12,7 +12,7 @@
   background-image: url("../../assets/svg/Texture.svg");
   transform-origin: 50% 50%;
   transform: rotateX(10deg);
-  box-shadow: 0px 10px 0px -4px rgb(142, 97, 0), 0px 10px 0px -4px rgb(142, 97, 0);
+  box-shadow: 0px 10px 0px -4px #8e6100, 0px 10px 0px -4px #8e6100;
 }
 
 .table::after,
@@ -21,7 +21,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: rgb(104, 71, 0);
+  background-color: #684700;
   transform-origin: 50% 50%;
   top: 155px;
 }

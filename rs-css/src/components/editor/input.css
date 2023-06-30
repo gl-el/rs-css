@@ -10,7 +10,7 @@
 .editor {
   box-sizing: border-box;
   width: min(70%, 450px);
-  background-color: rgb(59, 56, 56);
+  background-color: #3b3838;
   position:relative;
 }
 
@@ -29,18 +29,18 @@
 }
 
 .btn {
-  background-color: rgb(138, 131, 131);
+  background-color: #8a8383;
   border-radius: 2px;
   cursor: pointer;
   margin-left: 5px;
-  color: rgb(219, 255, 153);
-  border: solid 3px rgb(77, 73, 73);
+  color: #dbff99;
+  border: solid 3px #4d4949;
   border-width: 1px 1px 6px 1px;
   transition: all 0.1s linear;
 }
 
 .btn:hover {
-  color: rgb(44, 255, 44);
+  color: #2cff2c;
 }
 
 .btn:active {

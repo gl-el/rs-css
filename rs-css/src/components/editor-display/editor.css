@@ -2,14 +2,14 @@
   width: min(70%, 450px);
   font-size: 10px;
   position: relative;
-  background-color: rgb(59, 56, 56);
+  background-color: #3b3838;
 }
 
 .viewer__header {
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  background-color: rgb(59, 56, 56);
+  background-color: #3b3838;
 }
 
 .viewer__numbers {
@@ -25,8 +25,8 @@
   top: 32px;
   left: 50px;
   line-height: 16px;
-  color: rgb(173, 173, 173);
-  background-color: #232323;
+  color: #adadad;
+  background-color: #242424;
 }
 
 .viewer__window>* {
@@ -39,7 +39,7 @@
 }
 
 .viewer__line {
-  background-color: rgb(49, 46, 46);
+  background-color: #312e2e;
 }
 
 .line__number {
@@ -56,25 +56,25 @@
 }
 
 .tag {
-  color:rgb(33, 167, 0)
+  color:#21a700
 }
 
 .prop {
-  color: rgb(153, 45, 153)
+  color: #992d99
 }
 
 .prop-text {
-  color: rgb(139, 106, 35)
+  color: #8b6a23
 }
 
 [data-code="true"] .tag {
-  color:rgb(46, 231, 0)
+  color:#2ee700
 }
 
 [data-code="true"] .prop {
-  color: rgb(255, 67, 255)
+  color: #ff43ff
 }
 
 [data-code="true"] .prop-text {
-  color: rgb(255, 196, 68)
+  color: #ffc444
 }
